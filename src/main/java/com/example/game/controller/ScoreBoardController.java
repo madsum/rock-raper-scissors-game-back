@@ -12,6 +12,7 @@ import java.util.List;
 public class ScoreBoardController {
     public static final String POST_REQUEST = "/add";
     public static final String GET_ALL_REQUEST = "/all";
+    public static final String GET_BY_ID = "/id";
 
     private ScoreService scoreService;
 
@@ -22,6 +23,11 @@ public class ScoreBoardController {
     @GetMapping(path = GET_ALL_REQUEST,  produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Score> getAllScore(){
         return scoreService.getAll();
+    }
+
+    @GetMapping(path = "/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public Score getScoreById(@PathVariable("id") long id){
+        return scoreService.findById(id);
     }
 
     @PostMapping(path = POST_REQUEST,  produces = MediaType.APPLICATION_JSON_VALUE)

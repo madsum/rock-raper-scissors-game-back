@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScoreService {
@@ -19,6 +20,11 @@ public class ScoreService {
 
     public List<Score> getAll() {
         return scoreRepository.findAll();
+    }
+
+    public Score findById(long id) {
+        Optional<Score> optionalScore = scoreRepository.findById(id);
+        return optionalScore.orElse(null);
     }
 
 }
