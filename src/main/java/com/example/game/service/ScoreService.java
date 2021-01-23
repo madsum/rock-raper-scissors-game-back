@@ -1,5 +1,6 @@
 package com.example.game.service;
 
+import com.example.game.model.Result;
 import com.example.game.model.Score;
 import com.example.game.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,9 @@ public class ScoreService {
 
     public void deleteByRound(int round) {
         scoreRepository.deleteByRound(round);
+    }
+
+    public int updateResultById(long id, Result result) {
+        return scoreRepository.updateResultById(id, result);
     }
 }

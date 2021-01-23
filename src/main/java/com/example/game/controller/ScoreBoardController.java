@@ -1,5 +1,6 @@
 package com.example.game.controller;
 
+import com.example.game.model.Result;
 import com.example.game.model.Score;
 import com.example.game.service.ScoreService;
 import io.swagger.annotations.ApiOperation;
@@ -18,8 +19,10 @@ public class ScoreBoardController {
     public static final String DELETE_BY_NAME = "/deleteByName/{name}";
     public static final String DELETE_BY_ROUND_PATH_VAR = "/deleteByRoundPath/{round}";
     public static final String DELETE_BY_ROUND_PARAM = "/deleteByRoundParam";
-    public static final String GET_BY_NAME_PATH_VAR = "/getByNamePath/{id}/{name}";
-    public static final String GET_BY_NAME_PARAM = "/getByNameParam";
+    public static final String UPDAATE_NAME_BY_ID_PATH_VAR = "/updateNameByIdPath/{id}/{name}";
+    public static final String UPDATE_NAME_BY_ID_PARAM = "/updateNameByIdParam";
+    public static final String UPDATE_RESULT_BY_ID_PATH_VAR = "/updateResultByIdPath/{id}/{result}";
+    public static final String UPDATE_RESULT_BY_ID_PARAM = "/updateResultByIdParam";
     public static final String GET_BY_ID = "/getById/{id}";
 
     private ScoreService scoreService;
@@ -44,7 +47,7 @@ public class ScoreBoardController {
 
     // request by http://localhost:8080/score/getByNamePath/6/test
     @ApiOperation(value = "Returns score by id example by PathVariable")
-    @GetMapping(path = GET_BY_NAME_PATH_VAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = UPDAATE_NAME_BY_ID_PATH_VAR, produces = MediaType.APPLICATION_JSON_VALUE)
     public Integer updateNameByIdPathVar(
             @ApiParam(value = "id of the score")
             @PathVariable(name = "id") long id,
@@ -54,15 +57,37 @@ public class ScoreBoardController {
     }
 
 
-    // http://localhost:8080/score/getByNameParam?id=6&name=test
+    //put http://localhost:8080/score/getByNameParam?id=6&name=test
     @ApiOperation(value = "Returns score by id example by RequestParam")
-    @GetMapping(path = GET_BY_NAME_PARAM, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = UPDATE_NAME_BY_ID_PARAM, produces = MediaType.APPLICATION_JSON_VALUE)
     public Integer updateNameByIdParam(
             @ApiParam(value = "id of the score")
             @RequestParam(name = "id") long id,
             @ApiParam(value = "updated name of the score")
             @RequestParam(name = "name") String name) {
         return scoreService.updateNameById(id, name);
+    }
+
+    //put http://localhost:8080/score/getByNameParam?id=6&name=test
+    @ApiOperation(value = "Returns score by id example by RequestParam")
+    @PutMapping(path = UPDATE_RESULT_BY_ID_PARAM, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Integer updateResultByIdParam(
+            @ApiParam(value = "id of the score")
+            @RequestParam(name = "id") long id,
+            @ApiParam(value = "updated result of the score")
+            @RequestParam(name = "result") Result result) {
+        return scoreService.updateResultById(id, result);
+    }
+
+    //put http://localhost:8080/score/getByNameParam?id=6&name=test
+    @ApiOperation(value = "Returns result by id example by RequestParam")
+    @PutMapping(path = UPDATE_RESULT_BY_ID_PATH_VAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Integer updateResultByIdPath(
+            @ApiParam(value = "id of the score")
+            @PathVariable(name = "id") long id,
+            @ApiParam(value = "updated result of the score")
+            @PathVariable(name = "result") Result result) {
+        return scoreService.updateResultById(id, result);
     }
 
     @ApiOperation(value = "Add a new score post socre as json body")

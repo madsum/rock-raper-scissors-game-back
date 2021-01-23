@@ -1,5 +1,6 @@
 package com.example.game.repository;
 
+import com.example.game.model.Result;
 import com.example.game.model.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,4 +33,9 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Modifying
     @Transactional
     void deleteByRound(int round);
+
+    @Modifying
+    @Transactional
+    @Query("update Score sr set sr.result = ?2 where sr.id = ?1")
+    int updateResultById(long id, Result result);
 }
