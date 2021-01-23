@@ -27,8 +27,8 @@ public class ScoreService {
         return optionalScore.orElse(null);
     }
 
-    public Integer getByName(long id, String name) {
-        Integer optionalScore = scoreRepository.getByName(id, name);
+    public Integer updateNameById(long id, String name) {
+        Integer optionalScore = scoreRepository.updateNameById(id, name);
         return optionalScore;
     }
 
@@ -48,5 +48,9 @@ public class ScoreService {
 
     public void deleteByName(String name) {
         scoreRepository.deleteByName(name);
+    }
+
+    public void deleteByRound(int round) {
+        scoreRepository.deleteByRound(round);
     }
 }

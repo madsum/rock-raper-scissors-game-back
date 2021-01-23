@@ -15,7 +15,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Modifying
     @Transactional
     @Query("update Score sr set sr.name = ?2 where sr.id = ?1")
-    Integer getByName(long id, String name);
+    Integer updateNameById(long id, String name);
 
     @Modifying
     @Transactional
@@ -29,4 +29,7 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Transactional
     void deleteByName(String name);
 
+    @Modifying
+    @Transactional
+    void deleteByRound(int round);
 }
