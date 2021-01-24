@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/score")
+@RequestMapping(ScoreBoardController.REQUEST_URL)
 public class ScoreBoardController {
+    public static final String REQUEST_URL = "/score";
     public static final String POST_REQUEST = "/add";
     public static final String GET_ALL_REQUEST = "/all";
     public static final String DELETE_BY_ID = "/deleteById/{id}";
