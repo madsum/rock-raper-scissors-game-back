@@ -28,9 +28,13 @@ public class ScoreService {
         return optionalScore.orElse(null);
     }
 
-    public Integer updateNameById(long id, String name) {
-        Integer optionalScore = scoreRepository.updateNameById(id, name);
-        return optionalScore;
+    public Score updateNameById(long id, String name) {
+     return  scoreRepository.findById(id)
+                .map(score -> {
+                    score.setName(name);
+                    return scoreRepository.save(score);
+                    })
+                .orElseGet(() -> null);
     }
 
     public Score findById(long id) {
@@ -55,7 +59,13 @@ public class ScoreService {
         scoreRepository.deleteByRound(round);
     }
 
-    public int updateResultById(long id, Result result) {
-        return scoreRepository.updateResultById(id, result);
+    public Score updateResultById(long id, Result result) {
+        return  scoreRepository.findById(id)
+                .map(score -> {
+                    score.setResult(result);
+                    return scoreRepository.save(score);
+                })
+                .orElseGet(() -> null);
+
     }
 }

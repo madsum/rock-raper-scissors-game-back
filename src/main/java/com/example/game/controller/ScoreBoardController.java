@@ -20,7 +20,7 @@ public class ScoreBoardController {
     public static final String DELETE_BY_NAME = "/deleteByName/{name}";
     public static final String DELETE_BY_ROUND_PATH_VAR = "/deleteByRoundPath/{round}";
     public static final String DELETE_BY_ROUND_PARAM = "/deleteByRoundParam";
-    public static final String UPDAATE_NAME_BY_ID_PATH_VAR = "/updateNameByIdPath/{id}/{name}";
+    public static final String UPDATE_NAME_BY_ID_PATH_VAR = "/updateNameByIdPath/{id}/{name}";
     public static final String UPDATE_NAME_BY_ID_PARAM = "/updateNameByIdParam";
     public static final String UPDATE_RESULT_BY_ID_PATH_VAR = "/updateResultByIdPath/{id}/{result}";
     public static final String UPDATE_RESULT_BY_ID_PARAM = "/updateResultByIdParam";
@@ -46,10 +46,10 @@ public class ScoreBoardController {
         return scoreService.getById(id);
     }
 
-    // request by http://localhost:8080/score/getByNamePath/6/test
+    // request by http://localhost:8080/score/updateNameByIdPath/6/newName
     @ApiOperation(value = "Returns score by id example by PathVariable")
-    @PutMapping(path = UPDAATE_NAME_BY_ID_PATH_VAR, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Integer updateNameByIdPathVar(
+    @PutMapping(path = UPDATE_NAME_BY_ID_PATH_VAR, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Score updateNameByIdPathVar(
             @ApiParam(value = "id of the score")
             @PathVariable(name = "id") long id,
             @ApiParam(value = "updated name of the score")
@@ -61,18 +61,18 @@ public class ScoreBoardController {
     //put http://localhost:8080/score/getByNameParam?id=6&name=test
     @ApiOperation(value = "Returns score by id example by RequestParam")
     @PutMapping(path = UPDATE_NAME_BY_ID_PARAM, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Integer updateNameByIdParam(
-            @ApiParam(value = "id of the score")
-            @RequestParam(name = "id") long id,
-            @ApiParam(value = "updated name of the score")
-            @RequestParam(name = "name") String name) {
-        return scoreService.updateNameById(id, name);
+    public Score updateNameByIdParam(
+        @ApiParam(value = "id of the score")
+        @RequestParam(name = "id") long id,
+        @ApiParam(value = "updated name of the score")
+        @RequestParam(name = "name") String name) {
+    return scoreService.updateNameById(id, name);
     }
 
     //put http://localhost:8080/score/getByNameParam?id=6&name=test
     @ApiOperation(value = "Returns score by id example by RequestParam")
     @PutMapping(path = UPDATE_RESULT_BY_ID_PARAM, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Integer updateResultByIdParam(
+    public Score updateResultByIdParam(
             @ApiParam(value = "id of the score")
             @RequestParam(name = "id") long id,
             @ApiParam(value = "updated result of the score")
@@ -83,7 +83,7 @@ public class ScoreBoardController {
     //put http://localhost:8080/score/getByNameParam?id=6&name=test
     @ApiOperation(value = "Returns result by id example by RequestParam")
     @PutMapping(path = UPDATE_RESULT_BY_ID_PATH_VAR, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Integer updateResultByIdPath(
+    public Score updateResultByIdPath(
             @ApiParam(value = "id of the score")
             @PathVariable(name = "id") long id,
             @ApiParam(value = "updated result of the score")
@@ -91,13 +91,13 @@ public class ScoreBoardController {
         return scoreService.updateResultById(id, result);
     }
 
-    @ApiOperation(value = "Add a new score post socre as json body")
-    @PostMapping(path = POST_REQUEST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Score save(
-            @ApiParam(value = "A score to save into db")
-            @RequestBody Score score) {
-        return scoreService.save(score);
-    }
+        @ApiOperation(value = "Add a new score post socre as json body")
+        @PostMapping(path = POST_REQUEST, produces = MediaType.APPLICATION_JSON_VALUE)
+        public Score save(
+                @ApiParam(value = "A score to save into db")
+                @RequestBody Score score) {
+            return scoreService.save(score);
+        }
 
     // delete http://localhost:8080/score/deleteById/7
     @ApiOperation(value = "Delete score by id")
