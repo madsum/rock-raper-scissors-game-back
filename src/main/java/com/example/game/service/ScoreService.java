@@ -29,11 +29,11 @@ public class ScoreService {
     }
 
     public Score updateNameById(long id, String name) {
-     return  scoreRepository.findById(id)
+        return scoreRepository.findById(id)
                 .map(score -> {
                     score.setName(name);
                     return scoreRepository.save(score);
-                    })
+                })
                 .orElseGet(() -> null);
     }
 
@@ -60,12 +60,16 @@ public class ScoreService {
     }
 
     public Score updateResultById(long id, Result result) {
-        return  scoreRepository.findById(id)
+        return scoreRepository.findById(id)
                 .map(score -> {
                     score.setResult(result);
                     return scoreRepository.save(score);
                 })
                 .orElseGet(() -> null);
 
+    }
+
+    private Integer privateSum(Integer a, Integer b) {
+        return a + b;
     }
 }

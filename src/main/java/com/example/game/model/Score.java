@@ -76,4 +76,27 @@ public class Score {
     public void setTimestamp(Instant timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Score score = (Score) o;
+
+        if (id != score.id) return false;
+        if (round != score.round) return false;
+        if (name != null ? !name.equals(score.name) : score.name != null) return false;
+        return result == score.result;
+    }
+
+    @Override
+    public int hashCode() {
+        int result1 = (int) (id ^ (id >>> 32));
+        result1 = 31 * result1 + (name != null ? name.hashCode() : 0);
+        result1 = 31 * result1 + round;
+        result1 = 31 * result1 + (result != null ? result.hashCode() : 0);
+        return result1;
+    }
+
 }
