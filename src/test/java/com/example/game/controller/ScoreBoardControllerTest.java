@@ -6,8 +6,7 @@ import com.example.game.service.ScoreService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,6 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -69,11 +69,11 @@ class ScoreBoardControllerTest {
 
     @Test
     void updateNameByIdPathVar() throws Exception {
-
         Score expectedScore = new Score(1l, "updateName", 1, Result.WIN, null);
         when(scoreService.updateNameById(1, "updateName")).thenReturn(expectedScore);
 
-        mockMvc.perform(put(ScoreBoardController.REQUEST_URL + "/updateNameByIdPath/1/newName"))
+        mockMvc.perform(put(ScoreBoardController.REQUEST_URL + "/updateNameByIdPath/1/updateName"))
+                .andDo(print()) // this is for debugging
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("updateName"));
     }
@@ -85,6 +85,7 @@ class ScoreBoardControllerTest {
         when(scoreService.updateNameById(1, "updateName")).thenReturn(expectedScore);
 
         mockMvc.perform(put(ScoreBoardController.REQUEST_URL + "/updateNameByIdPath/1/updateName"))
+                .andDo(print()) // this is for debugging
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("updateName"));
     }
